@@ -125,15 +125,15 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', protegerRota, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/dashboard.html'));
 });
 
-app.get('/perfil', (req, res) => {
+app.get('/perfil', protegerRota, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/perfil.html'));
 });
 
-app.get('/monitoramento', (req, res) => {
+app.get('/monitoramento', protegerRota, (req, res) => {
     res.sendFile(path.join(__dirname, 'views/monitoramento.html'));
 });
 
@@ -141,7 +141,7 @@ app.get('/camera', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/camera.html'));
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', protegerRota, (req, res) => {
     req.session.destroy(err => {
         if (err) {
             return res.send(`
