@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/perfil.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="/img/iconeSite.png">
+</head>
+<body>
+    <nav id="sideBar">
+    <div id="sidebarContent">
+
+        <button id="openBtn">
+            <img id="btnImg" src="/img/logoNav.png" alt="">
+        </button>
+
+        <ul id="sideItens">
+            <li class="sideItem">
+                <a href="/">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="itemDescricao">Pagina principal</span>
+                </a>
+            </li>
+
+            <li class="sideItem">
+                <a href="/dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="itemDescricao">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sideItem">
+                <a href="/monitoramento">
+                    <i class="fa-solid fa-eye"></i>
+                    <span class="itemDescricao">Monitoramento</span>
+                </a>
+            </li>
+
+            <li class="sideItem active">
+                <a href="/perfil">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="itemDescricao">Pefil</span>
+                </a>
+            </li>
+
+            <li class="sideItem">
+                <a href="/logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="itemDescricao">Log-out</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    </nav>
+
+    <main>
+  <section class="sectionPerfil">
+    <div class="divPerfil">
+      
+      <div class="divPrimeira">
+        <div class="divFoto">
+          <img class="imgEquipe" src="/img/Gustavo.jpeg" alt="Foto do usuário">
+        </div>
+
+        <div class="divNome">
+          <h1>Nome do Usuário</h1>
+          <h2>Cargo ou Função</h2>
+        </div>
+
+        <div class="divBtn">
+          <button>Editar Perfil</button>
+        </div>
+      </div>
+
+
+      <div class="divInforma">
+        <h1>Informações do Usuário</h1>
+        <div class="infosGrid">
+          <div class="infoCard">
+            <strong>Email:</strong>
+            <p>usuario@email.com</p>
+          </div>
+          <div class="infoCard">
+            <strong>Telefone:</strong>
+            <p>(11) 99999-9999</p>
+          </div>
+          <div class="infoCard">
+            <strong>Data de entrada:</strong>
+            <p>12/03/2023</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+    <script src="/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #e5eff8;
+}
+
+/* SIDEBAR */
+#btnImg {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+#openBtn {
+  cursor: pointer;
+  margin-bottom: 20px;
+  background: none;
+  border: none;
+  text-align: center;
+}
+
+#sideBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #2B5D86;
+  height: 100%;
+  transition: all 0.5s;
+  min-width: 82px;
+}
+
+#sidebarContent {
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
+#sideItens {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  list-style: none;
+}
+
+.sideItem {
+  padding: 14px;
+  cursor: pointer;
+}
+
+.sideItem.active {
+  background-color: #295171;
+  border-radius: 10px;
+}
+
+.sideItem a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.sideItem a:hover {
+  text-decoration: underline;
+}
+
+.sideItem a i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+/* Descrição oculta por padrão */
+.itemDescricao {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: width .5s;
+}
+
+/* Sidebar expandida */
+#sideBar.openSideBar {
+  min-width: 15%;
+}
+
+#sideBar.openSideBar .itemDescricao {
+  width: 150px;
+  height: auto;
+}
+
+#sideBar.openSideBar .sideItem a {
+  justify-content: flex-start;
+  gap: 14px;
+}
+
+/* MAIN */
+main {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* SECTION */
+.sectionDashboard {
+  background: linear-gradient(180deg, #e5eff8 70%, #3c6d96 100%);
+  height: 100vh;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITULOS */
+.divBemVindo {
+  color: #19354e;
+  margin-bottom: 1.5rem;
+}
+
+.divBemVindo h1 {
+  font-size: clamp(1.8rem, 2.8vw, 3rem);
+}
+
+.divBemVindo h2 {
+  font-size: clamp(1.2rem, 1.8vw, 2rem);
+  font-weight: 500;
+}
+
+/* CARDS CONTAINER */
+.divConteudo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(0.8rem, 2.2vw, 2.5rem);
+  flex: 1;
+  overflow: hidden;
+}
+
+/* CARD */
+.cardMaquina {
+  background: #fff;
+  border-radius: 18px;
+
+  width: clamp(15rem, 25vw, 22rem);
+  height: clamp(22rem, 28vw, 30rem);
+
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  padding: clamp(0.8rem, 1.5vw, 1.8rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* TITULO DO CARD */
+.cardMaquina h2 {
+  font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+  font-weight: 700;
+  color: #0b2545;
+  margin-bottom: 0.2rem;
+}
+
+/* STATUS */
+.pOperando,
+.pErro {
+  font-weight: 600;
+  font-size: clamp(0.75rem, 1vw, 1.1rem);
+  display: flex;
+  align-items: center;
+}
+
+.pOperando i,
+.pErro i {
+  font-size: clamp(0.6rem, 0.9vw, 0.9rem);
+  margin-right: 0.5rem;
+}
+
+.pOperando { color: #00994d; }
+.pErro { color: #e63946; }
+
+/* INFORMAÇÕES */
+.cardInformacao {
+  font-size: clamp(0.85rem, 1vw, 1.1rem);
+  color: #333;
+}
+
+.cardInformacao p {
+  margin: 0.3rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* BOTÃO */
+.btnSimular {
+  align-self: flex-start;
+  border: none;
+  border-radius: 10px;
+  background: #2B5D86;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  padding: clamp(0.5rem, 1vw, 0.7rem)
+           clamp(0.7rem, 1.2vw, 1rem);
+
+  transition: 0.2s ease;
+}
+
+.btnSimular:hover {
+  background-color: #23496a;
+  transform: translateY(-1px);
+}
+
+.btnSimular.anomalia {
+  background-color: #e63946;
+}
+
+.btnSimular.anomalia:hover {
+  background-color: #c53038;
+}
+
+/* IMAGEM DO CARD */
+.cardImagem img {
+  width: 100%;
+  height: clamp(120px, 12vw, 180px);
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* BREAKPOINTS */
+@media (max-width: 1600px) {
+  .sectionDashboard {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 1366px) {
+  .cardMaquina {
+    width: clamp(14rem, 26vw, 20rem);
+    height: clamp(20rem, 30vw, 28rem);
+  }
+
+  .divConteudo {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .divConteudo {
+    flex-wrap: wrap;
+    height: auto;
+    overflow-y: auto;
+    padding-bottom: 1rem;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .sectionDashboard {
+    height: auto;
+  }
+}
+
+/* TELAS GRANDES (Ex: 1920x1080) — RESTAURA TAMANHOS ORIGINAIS */
+@media (min-width: 1600px) {
+
+  .cardMaquina {
+    width: 28rem;
+    height: 38rem;
+    padding: 2rem;
+  }
+
+  .cardMaquina h2 { font-size: 1.45rem; }
+
+  .pOperando,
+  .pErro {
+    font-size: 1.2rem;
+  }
+
+  .pOperando i,
+  .pErro i {
+    font-size: 0.9rem;
+  }
+
+  .cardInformacao {
+    font-size: 1.2rem;
+  }
+
+  .btnSimular {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .cardImagem img {
+    height: 230px;
+  }
+}

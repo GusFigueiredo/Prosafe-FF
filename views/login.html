@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="/css/login.css">
+     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="/img/iconeSite.png">
+
+</head>
+<body>
+  <header>
+        <nav>
+            <div class="navImg">
+                <a href="/"><img src="/img/logoHeader.png" alt="Logo Prodsafe" width="230rem"></a>
+            </div>
+
+            <div class="navLinks">
+                <a href="/">Sobre nós</a>
+                <a href="/#solucoes">Soluções</a>
+                <a href="/#tecnologia">Tecnologia</a>
+                <a href="/#beneficio">Benefícios</a>
+                <a href="/login">Login <i class="fa-regular fa-circle-user"></i></a>
+                <a href="/cadastro">Cadastrar <i class="fa-regular fa-circle-user"></i> </a>
+            </div>
+        </nav>
+    </header>
+  <main>
+
+  <div class="divMain">
+ 
+  <form action="/login" method="POST"> 
+    <h1>Login</h1>
+    <input type="text" name="usuario" required placeholder="Usuario:"> 
+    <input type="password" name="senha" required placeholder="Senha:">  
+    <p><a class="aP" href="/cadastro"> Ainda nao tem conta? Registrar</a></p>
+  <button type="submit">Entrar</button> 
+  </form>
+</div>
+</main>
+<footer>
+        <div class="FooterEsq">
+            <img class="imgHeader" src="img/imgFooter.png" alt="">
+            <dt>
+             <dd>Email: prodsafecontato@gmail.com</dd>
+             <dd>Telefone: (11) 55543-1994 </dd>
+             <dd>Avenida das Nações Unidas, 3.003</dd>
+             <dd>Osasco, São Paulo</dd>
+            </dt>
+        </div>
+
+        <div class="FooterDir">
+            <h2>Redes sociais</h2>
+            <dt>
+             <dd class="ddI"><a href="http://"><i class="fa-brands fa-square-facebook"></i>Facebook</a></dd>
+             <dd class="ddI"><a href="http://"><i class="fa-brands fa-linkedin"></i>Linkedin</a></dd>
+             <dd class="ddI"><a href="http://"><i class="fa-brands fa-square-whatsapp"></i>Whatsapp</a></dd>
+            </dt>
+        </div>
+    </footer>
+
+    <script>
+    const url = new URLSearchParams(window.location.search);
+    const alerta = url.get("alert");
+
+    if (alerta === "cadastrado") alert("Conta criada com sucesso!");
+    if (alerta === "loginOk") alert("Login realizado com sucesso!");
+    if (alerta === "erro") alert("Algo deu errado!");
+    if (alerta === "existe") alert("Usuário já existe!");
+    if (alerta === "logout") alert("Você saiu da conta!");
+</script>
+
+</body>
+</html>

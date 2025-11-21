@@ -1,0 +1,494 @@
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: clamp(14px, 0.9vw + 10px, 18px);
+}
+
+body {
+  padding-top: 50px;
+}
+
+h1, h2, p {
+  color: #183959;
+}
+
+/* ---------------- HEADER ---------------- */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 10px; 
+  z-index: 1000;
+  box-shadow: 0 0px 10px rgba(0,0,0,0.5);
+}
+
+nav {
+  max-width: 80rem;        
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 3.5rem;         
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navImg {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #183959;
+}
+
+.navImg a { padding-top: 6px; }
+
+.navImg img {
+  width: clamp(150px, 12vw, 240px);
+  display: block;
+}
+
+.navLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 1.4vw, 2rem);
+}
+
+.navLinks a {
+  font-size: clamp(1rem, 1.2vw, 1.3rem);
+  color: #183959;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.navLinks a:hover { text-decoration: underline; }
+
+/* ---------------- SECTIONS ---------------- */
+
+section {
+  min-height: 100vh;
+  width: 100%;
+  scroll-margin-top: 6rem;
+  background-color: #ffffff;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.heroText {
+  flex: 1;
+  background: #19354E;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.heroText h1 {
+  color: white;
+  font-size: clamp(2.2rem, 3.6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.heroText p {
+  color: white;
+  font-size: clamp(1.1rem, 1.4vw, 1.7rem);
+  font-weight: 400;
+}
+
+.heroImg {
+  flex: 1;
+  overflow: hidden;
+}
+
+.heroImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------------- SOLUÇÕES ---------------- */
+
+#solucoes {
+  background: #eceff3;
+  /* mantive min-height para visual, removi max-height problemático */
+  min-height: 90vh;
+  padding: 2rem 0 2rem 0;
+  /* overflow auto permite scroll se conteúdo crescer; ocultar pode esconder conteúdo */
+  overflow: visible;
+}
+
+h1.hpS {
+  margin-top: 1rem;
+  font-size: clamp(2.5rem, 3vw, 3.4rem);
+  margin-left: 4rem;
+  padding-top: 0.6rem;
+}
+
+p.hpS {
+  font-size: clamp(1.1rem, 1.3vw, 1.6rem);
+  margin-left: 4rem;
+  margin-top: 0.5rem;
+}
+
+/* CONTÊINER DE CARDS */
+.cardSection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* align flex-start evita desalinhamento vertical */
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2vw, 2rem);
+  padding: 1rem;
+}
+
+/* CARD INDIVIDUAL */
+.cardSolucao {
+  margin: 0.9rem 1rem;
+  background-color: #f9fafa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #183959;
+width: clamp(17rem, 25vw, 23rem);
+  padding: clamp(1rem, 1.4vw, 1.7rem);
+  border-radius: 13.5px;
+  box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  height: auto;
+  overflow: hidden;
+}
+
+.cardSolucao:hover { transform: translateY(-5px); }
+
+.cardIcon {
+  width: clamp(4.5rem, 6vw, 9rem);
+  margin: 16px;
+}
+
+.cardSolucao h2 {
+  min-height: 45px;
+  font-size: clamp(1.1rem, 1.3vw, 1.53rem);
+  margin: 0.3rem 0;
+}
+
+.cardSolucao p {
+  font-size: clamp(0.95rem, 1.2vw, 1.17rem);
+  margin: 0.4rem 0;
+}
+
+.cardImg {
+  margin: 16px;
+  margin-top: 1.2rem;
+  border-radius: 27px;
+  width: clamp(13rem, 17vw, 19.8rem);
+  height: auto;
+  display: block;
+}
+
+/* ---------------- TECNOLOGIA ---------------- */
+
+#tecnologia {
+  background: linear-gradient(90deg, rgba(172,239,234,1) 15%, rgba(38,87,130,1) 100%);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.8rem;
+  gap: 1.8rem;
+}
+
+.divTecEsq {
+  margin-left: 1.8rem;
+  flex: 1 1 270px;
+  color: #265782;
+}
+
+.divTecEsq h1 {
+  font-size: clamp(2rem, 3.4vw, 4.68rem);
+  font-weight: 700;
+  color: #265782;
+  margin-bottom: 18px;
+}
+
+.divTecEsq h2 {
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.4vw, 1.62rem);
+  color: #265782;
+}
+
+.divTecDir {
+  flex: 1 1 270px;
+  display: flex;
+  justify-content: center;
+}
+
+.divTecDir img {
+  width: clamp(18rem, 28vw, 31.5rem);
+  height: auto;
+}
+
+/* ---------------- BENEFÍCIOS ---------------- */
+
+#beneficio {
+  gap: 1.8rem;
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(234,243,250,1) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.8rem 0.9rem;
+}
+
+#beneficio h1 {
+  font-size: clamp(2.5rem, 3.5vw, 3.6rem);
+  margin: 2.7rem;
+  padding: 1.35rem;
+}
+
+.cardsBene {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 36px;
+}
+
+.cardBeneficio {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #183959;
+  width: clamp(20rem, 24vw, 27rem);
+  padding: 9px;
+}
+
+.cardBeneficio img {
+  width: clamp(4rem, 5vw, 5.4rem);
+}
+
+.cardBeneficio p {
+  font-size: clamp(1rem, 1.1vw, 1.35em);
+  margin-top: 0.6rem;
+}
+
+.divExper {
+  padding: 1.8rem;
+  padding-bottom: 0px;
+}
+
+#beneficio h2 {
+  font-size: clamp(1.6rem, 1.8vw, 2.7rem);
+}
+
+#beneficio .h2Escolha {
+  font-size: clamp(1.2rem, 1.4vw, 2.16rem);
+}
+
+/* BOTÃO BENEFÍCIO (com pseudo e animação) */
+.btnBeneficio {
+  margin: 1.8rem;
+  height: clamp(3rem, 5vw, 6.3rem);
+  width: clamp(10rem, 16vw, 15.93rem);
+  font-size: clamp(1.2rem, 1.6vw, 1.8rem);
+  background-color: #183959;
+  color: white;
+  border-radius: 22.5px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 1;
+}
+
+.btnBeneficio::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(160,219,205,0) 0%,
+    rgba(58,251,206,0.8) 50%,
+    rgba(160,219,205,0) 100%
+  );
+  background-size: 200% 200%;
+  z-index: -1;
+  border-radius: 10.8px;
+  animation: bordaVerde 3s linear infinite;
+}
+
+.btnBeneficio::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 3.6px;
+  background-color: #183959;
+  border-radius: 10.8px;
+  z-index: -1;
+}
+
+@keyframes bordaVerde {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.btnBeneficio:hover {
+  transform: scale(1.05);
+  color: #a0dbcd;
+  box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------------- EQUIPE ---------------- */
+
+#equipe {
+  background: linear-gradient(
+    180deg,
+    rgba(234,243,250,1) 0%,
+    rgba(60,109,150,1) 52%,
+    rgba(24,57,89,1) 88%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 90vh;
+  padding: 2.7rem 0.9rem;
+}
+
+#equipe h1 {
+  font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+  padding: 45px;
+  padding-top: 0px;
+}
+
+.divEquipe {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 36px;
+}
+
+.cardEquipe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.cardEquipe:hover { transform: translateY(-5px); }
+
+.imgEquipe {
+  width: clamp(12rem, 14vw, 16.65rem);
+  height: clamp(12rem, 14vw, 16.65rem);
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2.7px solid #183959;
+  box-shadow: 0px 0px 18px rgba(24, 57, 89, 0.7);
+}
+
+#equipe h2 {
+  color: white;
+  font-size: clamp(1.2rem, 1.4vw, 1.62rem);
+  margin-top: 0.9rem;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #183959;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  gap: 1rem;
+}
+
+footer h2 {
+  font-weight: 500;
+  color: white;
+  font-size: clamp(1.3rem, 1.6vw, 1.8rem);
+}
+
+footer img {
+  width: clamp(100px, 9vw, 174px);
+}
+
+footer dd,
+footer a {
+  color: white;
+  text-decoration: none;
+  font-size: clamp(1rem, 1.2vw, 1.3rem);
+}
+
+footer a:hover { text-decoration: underline; }
+
+footer i { padding-right: 10px; }
+
+/* ---------------- RESPONSIVIDADE ---------------- */
+
+@media (max-width: 1600px) {
+  html { font-size: 95%; }
+  .heroText { padding: 3rem; }
+  .heroText h1 { font-size: 3.2rem; }
+  .heroText p { font-size: 1.4rem; }
+  .cardSolucao { width: 23rem; padding: 24px; }
+  .cardIcon { width: 8rem; }
+  #beneficio h1 { font-size: 3.2rem; }
+  .divTecDir img { width: 27rem; }
+}
+
+@media (max-width: 1366px) {
+  html { font-size: 90%; }
+  nav { max-width: 70rem; }
+  .heroText { padding: 2.5rem; }
+  .heroText h1 { font-size: 2.8rem; }
+  .heroText p { font-size: 1.2rem; }
+  .cardSolucao { width: 21rem; padding: 20px; }
+  .cardIcon { width: 7rem; }
+  .divTecDir img { width: 25rem; }
+  #beneficio h1 { font-size: 2.8rem; }
+  #equipe h1 { font-size: 3rem; }
+  .imgEquipe { width: 15rem; height: 15rem; }
+  .cardBeneficio p { font-size: 1.1rem; }
+  footer { padding-left: 8%; padding-right: 8%; }
+}
+
+@media (max-width: 900px) {
+  .cardSolucao { width: 90%; } /* ocupa a linha toda no celular */
+  .navLinks { gap: 1rem; }
+  .divTecDir img { width: 100%; max-width: 30rem; }
+  .divTecEsq { margin-left: 1rem; }
+}

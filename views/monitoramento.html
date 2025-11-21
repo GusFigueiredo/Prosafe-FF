@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Câmeras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/monitoramento.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="/img/iconeSite.png">
+
+    <!-- MediaPipe -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.4/pose.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+    <style>
+        #cameraCanvas {
+    width: 100%;
+    height: 100%;      /* ACOMPANHA O TAMANHO DO CONTAINER (agora maior) */
+    border-radius: 12px;
+    background: #111;
+    border: 2px solid #333;
+    object-fit: cover;
+}
+
+
+        .alertaCamera {
+            display: none; 
+            background-color: #ffe0db;
+            border-left: 4px solid #ff5a4f;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+        /* ============================
+   ESTILO BASE DOS ALERTAS
+============================ */
+
+.alertaItem span {
+    font-size: 14px;
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: 0.3s ease;
+}
+
+/* Estado padrão */
+.alertaItem span.semEvento {
+    color: #777;
+}
+
+/* Estado ativo */
+.alertaItem span.ativoAgora,
+.alertaItem span.alertaAtivo {
+    color: #d9534f;
+    font-weight: 600;
+}
+
+/* Ícone vermelho no ativo */
+.alertaItem span.ativoAgora i,
+.alertaItem span.alertaAtivo i {
+    color: #ff3b30;
+}
+
+/* ============================
+   CARD DOS ALERTAS
+============================ */
+
+.alertaItem {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    transition: 0.3s ease;
+}
+
+.alertaItem:hover {
+    background: #f3f3f3;
+}
+
+/* Quando ativo, marcar o card */
+.alertaItem.alertaAtivo {
+    border-color: #ff6b6b;
+    background: #ffeaea;
+    box-shadow: 0 0 6px rgba(255, 0, 0, 0.3);
+}
+
+/* ============================
+   ALERTA POP-UP (movimento brusco)
+============================ */
+
+.alertaCamera {
+    display: none;
+    background-color: #ffe0db;
+    border-left: 4px solid #ff5a4f;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+
+    animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================
+   BORDA VERMELHA DO MOVIMENTO BRUSCO
+============================ */
+canvas {
+    transition: 0.2s ease;
+}
+
+    </style>
+</head>
+
+<body>
+    <nav id="sideBar">
+        <div id="sidebarContent">
+            <button id="openBtn">
+                <img id="btnImg" src="/img/logoNav.png" alt="">
+            </button>
+
+            <ul id="sideItens">
+                <li class="sideItem"><a href="/"><i class="fa-solid fa-house"></i><span class="itemDescricao">Pagina principal</span></a></li>
+                <li class="sideItem"><a href="/dashboard"><i class="fa-solid fa-chart-line"></i><span class="itemDescricao">Dashboard</span></a></li>
+                <li class="sideItem active"><a href="/monitoramento"><i class="fa-solid fa-eye"></i><span class="itemDescricao">Monitoramento</span></a></li>
+                <li class="sideItem"><a href="/perfil"><i class="fa-solid fa-user"></i><span class="itemDescricao">Perfil</span></a></li>
+                <li class="sideItem"><a href="/logout"><i class="fa-solid fa-right-from-bracket"></i><span class="itemDescricao">Log-out</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="sectionMonitoramento">
+            <div class="divBemVindo"> 
+                <h1>Bem vindo, <strong>Usuário!</strong></h1>
+                <h2>Monitoramento de cameras</h2>
+            </div>
+
+            <div class="divConteudo">
+                <!-- CARD COM A CÂMERA -->
+                <div class="cardCamera">
+                    <div class="cardHeader">
+                        <h3>Camera 01 - Webcam</h3>
+                        <span class="statusLive">Ao vivo <i class="fa-solid fa-circle"></i></span>
+                    </div>
+
+                    <div class="divImagem">
+                        <!-- TROCAMOS A IMAGEM PELO CANVAS -->
+                        <canvas id="cameraCanvas" width="640" height="480"></canvas>
+                    </div>
+
+                    <!-- ALERTA BONITO DO SEU LAYOUT -->
+                    <div class="alertaCamera" id="alertaBrusco">
+                        <h3><i class="fa-solid fa-triangle-exclamation"></i> Movimento brusco detectado!</h3>
+                    </div>
+                </div>
+
+                <!-- ALERTAS LATERAIS -->
+                <div class="cardAlertas">
+                    <h2>Alertas da IA</h2>
+                    <p class="descricaoAlertas">Entenda os eventos detectados em tempo real</p>
+
+                    <div class="alertaItem" id="alertMovimento">
+                        <img class="iconAlert" src="img/iconAlert1.png">
+                        <div>
+                            <h3>Movimento Brusco</h3>
+                            <p>Detecta movimentos rápidos que podem prejudicar tanto o operário quanto a produção</p>
+                            <span class="semEvento" id="statusMovimento"><i class="fa-regular fa-circle"></i> Nenhum evento</span>
+                        </div>
+                    </div>
+
+                    <div class="alertaItem">
+                        <img class="iconAlert" src="img/iconAlert2.png">
+                        <div>
+                            <h3>Pessoa inativa</h3>
+                            <p>Reconhece quando alguém permanece muito tempo parado.</p>
+                            <span class="semEvento"><i class="fa-regular fa-circle"></i> nenhum evento</span>
+                        </div>
+                    </div>
+
+                    <div class="alertaItem">
+                        <img class="iconAlert" src="img/iconAlert3.png">
+                        <div>
+                            <h3>Ausência de Pessoa</h3>
+                            <p>Detecta quando ninguém aparece no campo da câmera.</p>
+                            <span class="semEvento"><i class="fa-regular fa-circle"></i> Nenhum evento</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/menu.js"></script>
+
+    <!-- ===========================
+         IA DO PRIMEIRO CÓDIGO
+    ============================ -->
+    <script>
+const canvas = document.getElementById("cameraCanvas");
+const ctx = canvas.getContext("2d");
+
+const alertaBrusco = document.getElementById("alertaBrusco");
+const statusMovimento = document.getElementById("statusMovimento");
+
+let video;
+
+/* ================================
+   VARIÁVEIS DOS FRAMES
+================================ */
+let lastLandmarks2 = null; 
+let movementFrames = 0;
+
+function detectFastMovement(landmarks) {
+    if (!lastLandmarks2) {
+        lastLandmarks2 = landmarks;
+        return false;
+    }
+
+    let totalMovement = 0;
+
+    for (let i = 0; i < landmarks.length; i++) {
+        const dx = landmarks[i].x - lastLandmarks2[i].x;
+        const dy = landmarks[i].y - lastLandmarks2[i].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        totalMovement += dist;
+    }
+
+    lastLandmarks2 = landmarks;
+
+    const avgMovement = totalMovement / landmarks.length;
+
+    return avgMovement > 0.02; 
+}
+
+function gerarFrameAnimacao() {
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+    ctx.strokeRect(
+        canvas.width * 0.10,
+        canvas.height * 0.10,
+        canvas.width * 0.80,
+        canvas.height * 0.80
+    );
+}
+
+/* ================================
+   IA — MÃOS FRENÉTICAS
+================================ */
+
+let lastLandmarks = null;
+let frenzyCounter = 0;
+const HAND_POINTS = [15, 17, 16, 18];
+const SPEED_THRESHOLD = 85;
+const FRENZY_FRAMES = 3;
+
+function detectHandFrenzy(landmarks) {
+    if (!lastLandmarks) {
+        lastLandmarks = landmarks;
+        return false;
+    }
+
+    let maxSpeed = 0;
+
+    for (let idx of HAND_POINTS) {
+        const p = landmarks[idx];
+        const lp = lastLandmarks[idx];
+        if (!p || !lp) continue;
+
+        let dx = (p.x - lp.x) * canvas.width;
+        let dy = (p.y - lp.y) * canvas.height;
+
+        maxSpeed = Math.max(maxSpeed, Math.sqrt(dx*dx + dy*dy));
+    }
+
+    lastLandmarks = landmarks;
+
+    if (maxSpeed > SPEED_THRESHOLD)
+        frenzyCounter++;
+    else
+        frenzyCounter = Math.max(0, frenzyCounter - 1);
+
+    return frenzyCounter >= FRENZY_FRAMES;
+}
+
+/* ================================
+   DETECÇÃO DE PESSOA INATIVA
+================================ */
+
+let lastPoseForIdle = null;
+let idleFrames = 0;
+
+function detectIdlePerson(landmarks) {
+    if (!lastPoseForIdle) {
+        lastPoseForIdle = landmarks;
+        return false;
+    }
+
+    let movement = 0;
+    for (let i = 0; i < landmarks.length; i++) {
+        const dx = landmarks[i].x - lastPoseForIdle[i].x;
+        const dy = landmarks[i].y - lastPoseForIdle[i].y;
+        movement += Math.sqrt(dx*dx + dy*dy);
+    }
+
+    lastPoseForIdle = landmarks;
+
+    if (movement < 0.003)
+        idleFrames++;
+    else
+        idleFrames = Math.max(0, idleFrames - 2);
+
+    return idleFrames > 150;
+}
+
+/* ================================
+   DETECÇÃO DE AUSÊNCIA DE PESSOA
+================================ */
+
+let noPersonFrames = 0;
+
+function detectNoPerson(result) {
+    const ok = result.poseLandmarks && result.poseLandmarks.length > 25;
+
+    if (!ok) {
+        noPersonFrames++;
+    } else {
+        noPersonFrames = 0;
+    }
+
+    return noPersonFrames > 45;
+}
+
+/* ================================
+   PROCESSAR FRAME
+================================ */
+function onResults(result) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(result.image, 0, 0, canvas.width, canvas.height);
+
+    const itens = document.querySelectorAll(".alertaItem");
+
+    /* 🌟 AUSÊNCIA DE PESSOA */
+    if (detectNoPerson(result)) {
+        const span = itens[2].querySelector("span");
+        span.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Ativo agora`;
+        span.classList.remove("semEvento");
+
+    } else {
+        const span = itens[2].querySelector("span");
+        span.innerHTML = `<i class="fa-regular fa-circle"></i> Desligado`;
+        span.classList.add("semEvento");
+    }
+
+    if (!result.poseLandmarks) return;
+
+    /* 🌟 PESSOA INATIVA */
+    if (detectIdlePerson(result.poseLandmarks)) {
+        const span = itens[1].querySelector("span");
+        span.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Ativo agora`;
+        span.classList.remove("semEvento");
+
+    } else {
+        const span = itens[1].querySelector("span");
+        span.innerHTML = `<i class="fa-regular fa-circle"></i> Desligado`;
+        span.classList.add("semEvento");
+    }
+
+    /* 🌟 MOVIMENTO BRUSCO */
+    if (detectFastMovement(result.poseLandmarks)) {
+        movementFrames = 12;
+    }
+
+    if (movementFrames > 0) {
+        gerarFrameAnimacao();
+        movementFrames--;
+    }
+
+    /* 🌟 MÃOS FRENÉTICAS */
+    if (detectHandFrenzy(result.poseLandmarks)) {
+        alertaBrusco.style.display = "block";
+        statusMovimento.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Ativo agora`;
+        statusMovimento.classList.remove("semEvento");
+        statusMovimento.classList.add("ativoAgora");
+
+        setTimeout(() => {
+            alertaBrusco.style.display = "none";
+            statusMovimento.innerHTML = `<i class="fa-regular fa-circle"></i> Nenhum evento`;
+            statusMovimento.classList.remove("ativoAgora");
+            statusMovimento.classList.add("semEvento");
+        }, 2000);
+    }
+}
+
+/* ================================
+   MEDIAPIPE — CONFIG
+================================ */
+const pose = new Pose({
+    locateFile: f => `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.4/${f}`
+});
+
+pose.setOptions({
+    modelComplexity: 1,
+    smoothLandmarks: true,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
+});
+
+pose.onResults(onResults);
+
+/* ================================
+   CÂMERA
+================================ */
+async function initCamera() {
+    video = document.createElement("video");
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: 640, height: 480 }
+    });
+
+    video.srcObject = stream;
+
+    return new Promise(resolve => {
+        video.onloadedmetadata = () => {
+            video.play();
+            resolve();
+        };
+    });
+}
+
+(async () => {
+    await initCamera();
+
+    const camera = new Camera(video, {
+        onFrame: async () => {
+            await pose.send({ image: video });
+        },
+        width: 640,
+        height: 480
+    });
+
+    camera.start();
+})();
+</script>
+</body>
+</html>

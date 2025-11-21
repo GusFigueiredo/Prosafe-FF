@@ -1,0 +1,332 @@
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Dashboard Eficiencia</title> 
+    <link rel="stylesheet" href="/css/dashboard.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="/img/iconeSite.png">
+</head> 
+ 
+<body> 
+    <nav id="sideBar">
+        <div id="sidebarContent">
+            <button id="openBtn">
+                <img id="btnImg" src="/img/logoNav.png" alt="">
+            </button>
+
+            <ul id="sideItens">
+                <li class="sideItem">
+                    <a href="/">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="itemDescricao">Pagina principal</span>
+                    </a>
+                </li>
+
+                <li class="sideItem active">
+                    <a href="/dashboard">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span class="itemDescricao">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sideItem">
+                    <a href="/monitoramento">
+                        <i class="fa-solid fa-eye"></i>
+                        <span class="itemDescricao">Monitoramento</span>
+                    </a>
+                </li>
+
+                <li class="sideItem">
+                    <a href="/perfil">
+                        <i class="fa-solid fa-user"></i>
+                        <span class="itemDescricao">Perfil</span>
+                    </a>
+                </li>
+
+                <li class="sideItem">
+                    <a href="/logout">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="itemDescricao">Log-out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+<main> 
+    <section class="sectionDashboard"> 
+        <div class="divBemVindo"> 
+            <h1>Bem vindo, <strong>Usuário</strong></h1> 
+            <h2>Dashboard de Eficiencia</h2> 
+        </div> 
+        
+        <div class="divConteudo"> 
+
+            <!-- =============== CARD 01 =============== -->
+            <div class="cardMaquina" data-normal-eficiencia="98" data-normal-temperatura="58" data-anomalia-eficiencia="32" data-anomalia-temperatura="96"> 
+                <h2>Máquina 01 - Impressora Industrial</h2> 
+                
+                <!-- STATUS -->
+                <p class="pOperando statusTexto">
+                    <i class="fa-solid fa-circle"></i> 
+                    <span>Operando normalmente</span>
+                </p>
+                
+                <div class="cardInformacao"> 
+                    <p><strong>Eficiência:</strong> <span class="valor-eficiencia">98%</span></p>
+                    <p><strong>Temperatura:</strong> <span class="valor-temperatura">58ºC</span></p> 
+                    <p><strong>Consumo Energético:</strong> 45 kWh/dia</p> 
+                    <p><strong>Horas Ativas:</strong> 22 h/dia</p> 
+                </div> 
+                
+                <div class="cardImagem"> 
+                    <img src="/img/imgCardMaquinas.jpg" alt="Imagem da máquina"> 
+                </div>
+
+                <button type="button" class="btnSimular">Simular anomalia</button>
+            </div> 
+
+            <!-- =============== CARD 01 =============== -->
+            <div class="cardMaquina" data-normal-eficiencia="98" data-normal-temperatura="58" data-anomalia-eficiencia="32" data-anomalia-temperatura="96"> 
+                <h2>Máquina 01 - Impressora Industrial</h2> 
+                
+                <!-- STATUS -->
+                <p class="pOperando statusTexto">
+                    <i class="fa-solid fa-circle"></i> 
+                    <span>Operando normalmente</span>
+                </p>
+                
+                <div class="cardInformacao"> 
+                    <p><strong>Eficiência:</strong> <span class="valor-eficiencia">98%</span></p>
+                    <p><strong>Temperatura:</strong> <span class="valor-temperatura">58ºC</span></p> 
+                    <p><strong>Consumo Energético:</strong> 45 kWh/dia</p> 
+                    <p><strong>Horas Ativas:</strong> 22 h/dia</p> 
+                </div> 
+                
+                <div class="cardImagem"> 
+                    <img src="/img/imgCardMaquinas.jpg" alt="Imagem da máquina"> 
+                </div>
+
+                <button type="button" class="btnSimular">Simular anomalia</button>
+            </div>
+
+            <!-- =============== CARD 01 =============== -->
+            <div class="cardMaquina" data-normal-eficiencia="98" data-normal-temperatura="58" data-anomalia-eficiencia="32" data-anomalia-temperatura="96"> 
+                <h2>Máquina 01 - Impressora Industrial</h2> 
+                
+                <!-- STATUS -->
+                <p class="pOperando statusTexto">
+                    <i class="fa-solid fa-circle"></i> 
+                    <span>Operando normalmente</span>
+                </p>
+                
+                <div class="cardInformacao"> 
+                    <p><strong>Eficiência:</strong> <span class="valor-eficiencia">98%</span></p>
+                    <p><strong>Temperatura:</strong> <span class="valor-temperatura">58ºC</span></p> 
+                    <p><strong>Consumo Energético:</strong> 45 kWh/dia</p> 
+                    <p><strong>Horas Ativas:</strong> 22 h/dia</p> 
+                </div> 
+                
+                <div class="cardImagem"> 
+                    <img src="/img/imgCardMaquinas.jpg" alt="Imagem da máquina"> 
+                </div>
+
+                <button type="button" class="btnSimular">Simular anomalia</button>
+            </div>
+
+        </div> 
+    </section> 
+</main> 
+
+<script src="/menu.js"></script>
+
+<!-- ======================= SCRIPT PRINCIPAL ======================= -->
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const cards = document.querySelectorAll('.cardMaquina');
+
+    const TEMPO_BASE = 140;
+    const PROBABILIDADE_PAUSA = 0.25;
+    const BONUS_SUBIDA = 0.5;
+    const OSCILACAO_AMPLITUDE = 2;
+    const OSCILACAO_INTERVALO_MIN = 3500;
+    const OSCILACAO_INTERVALO_MAX = 6500;
+
+    // ================= STATUS DINÂMICO ==================
+    function atualizarStatus(status, eficiencia) {
+        const texto = status.querySelector("span");
+        const icone = status.querySelector("i");
+
+        if (eficiencia >= 75) {
+            texto.textContent = "Operando normalmente";
+            status.style.color = "#12b938";        // verde
+            icone.style.color = "#12b938";
+        }
+        else if (eficiencia >= 60) {
+            texto.textContent = "Operando anormalmente";
+            status.style.color = "#d4b000";        // amarelo
+            icone.style.color = "#d4b000";
+        }
+        else {
+            texto.textContent = "Operando criticamente";
+            status.style.color = "#d10000";        // vermelho
+            icone.style.color = "#d10000";
+        }
+    }
+
+    // ====================================================
+
+    cards.forEach((card) => {
+
+        const button = card.querySelector('.btnSimular');
+        const status = card.querySelector('.statusTexto');
+        const eficienciaEl = card.querySelector('.valor-eficiencia');
+        const temperaturaEl = card.querySelector('.valor-temperatura');
+
+        const estados = {
+            normal: {
+                eficiencia: Number(card.dataset.normalEficiencia),
+                temperatura: Number(card.dataset.normalTemperatura),
+                texto: 'Operando normalmente'
+            },
+            anomalia: {
+                eficiencia: Number(card.dataset.anomaliaEficiencia),
+                temperatura: Number(card.dataset.anomaliaTemperatura),
+                texto: 'Operando anormalmente'
+            }
+        };
+
+        let estadoAtual = "normal";
+
+        const temporizadores = {
+            eficiencia: null,
+            temperatura: null
+        };
+
+        const oscilacoes = {
+            eficiencia: null,
+            temperatura: null
+        };
+
+        const obterNumero = (texto, unidade) => {
+            return parseFloat(texto.replace(unidade, '').replace('%', '').trim());
+        };
+
+        // ========== ALERTA DE TEMPERATURA ==========
+        const alertaTemp = document.createElement("p");
+        alertaTemp.classList.add("alertaTemp");
+        alertaTemp.style.color = "#b30000";
+        alertaTemp.style.fontWeight = "600";
+        alertaTemp.style.display = "none";
+        alertaTemp.style.marginTop = "6px";
+        alertaTemp.style.fontSize = "75%";
+        alertaTemp.textContent = "⚠ Temperatura elevada detectada!";
+
+        status.insertAdjacentElement("afterend", alertaTemp);
+
+        function verificarAlertaTemperatura() {
+            const temp = obterNumero(temperaturaEl.textContent, "ºC");
+            alertaTemp.style.display = temp >= 85 ? "block" : "none";
+        }
+        // ===========================================
+
+        // ANIMAÇÃO DE SUBIDA/DESCIDA
+        function animarValor(elemento, meta, unidade, chave) {
+
+            if (temporizadores[chave]) clearTimeout(temporizadores[chave]);
+
+            function passo() {
+
+                let atual = obterNumero(elemento.textContent, unidade);
+                if (atual === meta) {
+                    temporizadores[chave] = null;
+
+                    if (chave === "eficiencia") atualizarStatus(status, atual);
+                    verificarAlertaTemperatura();
+                    return;
+                }
+
+                // aproximação
+                const incremento = atual < meta ? 1 : -1;
+                const novo = atual + incremento;
+
+                elemento.textContent = `${novo}${unidade}`;
+
+                if (chave === "eficiencia") atualizarStatus(status, novo);
+                verificarAlertaTemperatura();
+
+                const delay = TEMPO_BASE + Math.random() * TEMPO_BASE 
+                              + (Math.random() < PROBABILIDADE_PAUSA ? TEMPO_BASE * 3 : 0)
+                              + (incremento > 0 ? TEMPO_BASE * BONUS_SUBIDA : 0);
+
+                temporizadores[chave] = setTimeout(passo, delay);
+            }
+
+            temporizadores[chave] = setTimeout(passo, TEMPO_BASE);
+        }
+
+        // OSCILAÇÃO AUTOMÁTICA
+        function iniciarOscilacao(chave, elemento, base, unidade) {
+
+            if (oscilacoes[chave]) clearTimeout(oscilacoes[chave]);
+
+            function oscilar() {
+                const variacao = (Math.random() * 2 - 1) * OSCILACAO_AMPLITUDE;
+                const alvo = Math.round(base + variacao);
+
+                animarValor(elemento, alvo, unidade, chave);
+
+                if (chave === "eficiencia") atualizarStatus(status, alvo);
+
+                oscilacoes[chave] = setTimeout(oscilar,
+                    OSCILACAO_INTERVALO_MIN +
+                    Math.random() * (OSCILACAO_INTERVALO_MAX - OSCILACAO_INTERVALO_MIN)
+                );
+            }
+
+            oscilacoes[chave] = setTimeout(oscilar, OSCILACAO_INTERVALO_MIN);
+        }
+
+        function pararOscilacao() {
+            Object.keys(oscilacoes).forEach(k => {
+                clearTimeout(oscilacoes[k]);
+                oscilacoes[k] = null;
+            });
+        }
+
+        // BOTÃO DE SIMULAÇÃO
+        button.addEventListener('click', () => {
+
+            estadoAtual = estadoAtual === "normal" ? "anomalia" : "normal";
+            const dados = estados[estadoAtual];
+
+            animarValor(eficienciaEl, dados.eficiencia, "%", "eficiencia");
+            animarValor(temperaturaEl, dados.temperatura, "ºC", "temperatura");
+
+            if (estadoAtual === "anomalia") {
+                pararOscilacao();
+                button.textContent = "Restaurar operação";
+                button.classList.add("anomalia");
+            } else {
+                button.textContent = "Simular anomalia";
+                button.classList.remove("anomalia");
+
+                iniciarOscilacao("eficiencia", eficienciaEl, estados.normal.eficiencia, "%");
+                iniciarOscilacao("temperatura", temperaturaEl, estados.normal.temperatura, "ºC");
+            }
+        });
+
+        // INICIAR OSCILAÇÃO AUTOMÁTICA AO CARREGAR
+        iniciarOscilacao("eficiencia", eficienciaEl, estados.normal.eficiencia, "%");
+        iniciarOscilacao("temperatura", temperaturaEl, estados.normal.temperatura, "ºC");
+    });
+});
+</script>
+
+</body>
+</html>

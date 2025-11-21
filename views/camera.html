@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Detector de Movimento Brusco</title>
+
+<!-- MediaPipe -->
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.4/pose.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    #canvas {
+        margin-top: 30px;
+        background: #111;
+        border: 2px solid #333;
+    }
+
+    #alertBox {
+        color: red;
+        font-size: 28px;
+        margin-top: 15px;
+        font-weight: bold;
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<h2 style="color:white">Detector de Movimento Brusco</h2>
+
+<!-- APENAS O CANVAS -->
+<canvas id="canvas" width="640" height="480"></canvas>
+
+<div id="alertBox">MOVIMENTO BRUSCO DETECTADO!</div>
+
+<script>
+const video = document.getElementById("video");
+const canvas = document.getElementById("output_canvas");
+const ctx = canvas.getContext("2d");
+
+// 🔥 Função para manter o canvas do tamanho EXATO do elemento na tela
+function syncCanvasSize() {
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+}
+
+// Ativa câmera
+async function startCamera() {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.srcObject = stream;
+}
+
+startCamera();
+
+// MediaPipe Pose
+const pose = new Pose({
+    locateFile: (file) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
+});
+
+pose.setOptions({
+    modelComplexity: 1,
+    smoothLandmarks: true,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
+});
+
+pose.onResults(onResults);
+
+function onResults(results) {
+    syncCanvasSize();  // <-- 🔥 Ajusta tamanho real antes de desenhar
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (!results.poseLandmarks) return;
+
+    const lm = results.poseLandmarks;
+
+    // Pegamos o ombro direito só como exemplo
+    const ombro = lm[12];  
+
+    const x = ombro.x * canvas.width;
+    const y = ombro.y * canvas.height;
+
+    // cálculo simples de velocidade
+    if (lastX !== null) {
+        const vel = Math.sqrt((x - lastX)**2 + (y - lastY)**2);
+
+        if (vel > 20) {
+            desenharQuadrado(x, y);
+        }
+    }
+
+    lastX = x;
+    lastY = y;
+}
+
+let lastX = null;
+let lastY = null;
+
+// Desenha somente quando realmente detecta movimento brusco
+function desenharQuadrado(x, y) {
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(x - 50, y - 50, 100, 100);
+}
+
+// Loop da câmera
+async function frameLoop() {
+    await pose.send({ image: video });
+    requestAnimationFrame(frameLoop);
+}
+
+frameLoop();
+
+</script>
+
+</body>
+</html>

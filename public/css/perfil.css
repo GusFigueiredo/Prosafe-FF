@@ -1,0 +1,139 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+
+body {
+    min-height: 100vh; 
+    display:flex;
+    /* Removido o min-height duplicado */
+    background-color: aliceblue;
+    overflow-x: hidden; /* Garante que não haja rolagem horizontal */
+}
+
+/* --- SIDEBAR E NAV (Mantido, garantindo 100vh) --- */
+#btnImg { width: 50px; height: 50px; object-fit: cover; }
+#openBtn{ cursor: pointer; margin-bottom: 20px; padding-top: 0px; text-align: center; background-color: transparent; border: none; }
+#sideBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #2B5D86;
+    height: 100vh; /* Altura máxima da viewport */
+    transition: all 0.5s;
+    min-width: 82px;
+}
+#sidebarContent { font-size: 1.2rem; padding: 10px; }
+#sideItens{ display: flex; flex-direction: column; gap: 15px; list-style: none; }
+.sideItem{ padding: 14px; cursor: pointer; }
+.sideItem.active { background-color: #295171; border-radius: 10px; }
+.sideItem a { color: white; text-decoration: none; display: flex; align-items: center; }
+.sideItem a:hover { text-decoration: underline; }
+.sideItem a i { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; }
+.itemDescricao { width: 0px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; transition: width 0.5s; height: 0px; }
+#sideBar.openSideBar { min-width: 15%; }
+#sideBar.openSideBar .itemDescricao{ width: 150px; height: auto; }
+#sideBar.openSideBar .sideItem a{ justify-content: flex-start; gap: 14px; }
+
+
+/* --- MAIN E SECTION (Ajuste para 100vh) --- */
+main {
+    flex: 1;
+    /* Ajustado para height: 100vh para corresponder ao body/sidebar */
+    height: 100vh; 
+    padding: 0; /* Remove padding fixo de 10px no main */
+    background: linear-gradient(180deg, #e5eff8 70%, #3c6d96 100%);
+    overflow: hidden; /* Garante que o main não role */
+}
+
+.sectionPerfil {
+    /* MUDANÇA PRINCIPAL: Define altura máxima da viewport */
+    height: 100vh;
+    min-height: 100vh; 
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Permite que o container .divPerfil use o espaço corretamente */
+    overflow: hidden; 
+}
+
+.divPerfil {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    width: 70%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    
+    /* Permite que o perfil ocupe a altura restante da section */
+    height: 100%; 
+    /* MUDANÇA: Permite rolagem DENTRO do cartão de perfil, mantendo o fundo fixo */
+    overflow-y: auto; 
+}
+
+/* --- PRIMEIRA SEÇÃO (Mantido) --- */
+.divPrimeira { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.divFoto { flex-shrink: 0; }
+.imgEquipe {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #183959;
+    box-shadow: 0 0 20px rgba(24, 57, 89, 0.5);
+}
+.divNome { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; }
+.divNome h1 { font-size: 2.8rem; color: #0b2545; }
+.divNome h2 { font-size: 1.8rem; color: #3c6d96; font-weight: 500; }
+.divBtn { display: flex; justify-content: center; align-items: flex-start; }
+.divBtn button {
+    margin: 10px;
+    display: block;
+    font-weight: 600;
+    height: 4rem;
+    width: 13rem;
+    font-size: 1.5rem;
+    background-color: #183959;
+    border: 0;
+    border-radius: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: #a0dbcd;
+}
+.divBtn button:hover { transform: scale(1.05); cursor: pointer; box-shadow: 0px 10px 0px 0px rgba(0, 0, 0, 0.1); }
+
+/* SEGUNDA SEÇÃO */
+.divInforma { display: flex; flex-direction: column; gap: 2rem; }
+.divInforma h1 {
+    font-size: 2rem;
+    color: #183959;
+    border-bottom: 3px solid #537da3;
+    padding-bottom: 0.5rem;
+}
+.infosGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+.infoCard { background-color: #f8fbff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(24, 57, 89, 0.1); }
+.infoCard strong { color: #0b2545; font-size: 1.1rem; }
+.infoCard p { color: #333; font-size: 1rem; margin-top: 0.4rem; }
+
+/* --- MEDIA QUERIES (Mantido) --- */
+@media (max-width: 1600px) {
+    .divPerfil { padding: 2.5rem; gap: 2.5rem; }
+    .imgEquipe { width: 13rem; height: 13rem; }
+    .divNome h1 { font-size: 2.4rem; }
+    .divNome h2 { font-size: 1.6rem; }
+    .divBtn button { width: 12rem; font-size: 1.3rem; }
+}
+
+@media (max-width: 1366px) {
+    .sectionPerfil { padding: 2rem 3rem; }
+    .divPerfil { width: 80%; padding: 2rem; }
+    .imgEquipe { width: 12rem; height: 12rem; }
+    .divNome h1 { font-size: 2.2rem; }
+    .divNome h2 { font-size: 1.5rem; }
+    .divBtn button { width: 10rem; font-size: 1.2rem; }
+}
