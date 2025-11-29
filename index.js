@@ -18,15 +18,6 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-function protegerRota(req, res, proximo) {
-    if (req.session.usuario) {
-        proximo();
-    } else {
-        res.redirect('/login');
-    }
-}
-
-
 const urlMongo = 'mongodb+srv://alvaro:Alvarolindo123@future-fest-prosafe.6tpbtcr.mongodb.net/?appName=future-fest-prosafe';
 const nomeBanco = 'sistemaLogin';
 
@@ -125,7 +116,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/dashboard', protegerRota, (req, res) => {
+app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/dashboard.html'));
 });
 
