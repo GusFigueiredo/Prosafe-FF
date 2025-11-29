@@ -33,7 +33,7 @@ app.get('/cadastro', (req, res) => {
     res.sendFile(path.join(__dirname, 'views/cadastro.html'));
 });
 
-app.post('/cadastro', async (req, res) => {
+app.post('/dashboard', async (req, res) => {
     const cliente = new MongoClient(urlMongo);
     try {
         await cliente.connect();
