@@ -60,7 +60,7 @@
         </div>
     </footer>
 
-    <script>
+    <script src="index.js">
     const url = new URLSearchParams(window.location.search);
     const alerta = url.get("alert");
 
@@ -70,6 +70,7 @@
     if (alerta === "existe") alert("Usuário já existe!");
     if (alerta === "logout") alert("Você saiu da conta!");
 </script>
+
 
 </body>
 </html>
