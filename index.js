@@ -27,7 +27,7 @@ function protegerRota(req, res, proximo) {
 }
 
 
-const urlMongo = 'mongodb://127.0.0.1:27017';
+const urlMongo = 'mongodb+srv://alvaro:Alvarolindo123@future-fest-prosafe.6tpbtcr.mongodb.net/?appName=future-fest-prosafe';
 const nomeBanco = 'sistemaLogin';
 
 app.get('/cadastro', (req, res) => {
