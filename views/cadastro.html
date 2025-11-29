@@ -60,16 +60,16 @@
         </div>
     </footer>
 
-    <script src="index.js">
-    const url = new URLSearchParams(window.location.search);
-    const alerta = url.get("alert");
-
-    if (alerta === "cadastrado") alert("Conta criada com sucesso!");
-    if (alerta === "loginOk") alert("Login realizado com sucesso!");
-    if (alerta === "erro") alert("Algo deu errado!");
-    if (alerta === "existe") alert("Usuário já existe!");
-    if (alerta === "logout") alert("Você saiu da conta!");
-</script>
+    <script>
+      const url = new URLSearchParams(window.location.search);
+      const alerta = url.get("alert");
+      
+      if (alerta === "cadastrado") alert("Conta criada com sucesso!");
+      if (alerta === "loginOk") alert("Login realizado com sucesso!");
+      if (alerta === "erro") alert("Algo deu errado!");
+      if (alerta === "existe") alert("Usuário já existe!");
+      if (alerta === "logout") alert("Você saiu da conta!");
+  </script>
 
 
 </body>
